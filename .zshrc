@@ -10,7 +10,7 @@ export ZSH="/Users/alireza/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
 
-ZSH_THEME="TheOne"
+#ZSH_THEME="agnoster"
 
 #ZSH_THEME="kphoen"
 
