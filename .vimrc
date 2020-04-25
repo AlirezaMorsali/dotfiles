@@ -1,6 +1,21 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+
+
+" Automatic reloading of .vimrc
+ autocmd! bufwritepost .vimrc source %
+
+" Better copy & paste
+" When you want to paste large blocks of code into vim, press F2 before you
+" paste. At the bottom you should see ``-- INSERT (paste) --``.
+
+set pastetoggle=<F2>
+set clipboard=unnamed
+
+
+
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
