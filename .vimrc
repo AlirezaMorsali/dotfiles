@@ -24,6 +24,14 @@ set mouse=a  " on OSX press ALT and click
 " let mapleader = ","
 
 
+" Bind nohl
+" Removes highlight of your last search
+" ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
+noremap <C-n> :nohl<CR>
+vnoremap <C-n> :nohl<CR>
+inoremap <C-n> :nohl<CR>
+
+
 " Quicksave command
 noremap <Leader>s :update<CR>
 vnoremap  <Leader>s :update<CR>
@@ -114,6 +122,22 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'easymotion/vim-easymotion'
 
+
+" airline
+Plugin 'vim-airline/vim-airline'
+
+
+" vim latex
+Plugin 'vim-latex/vim-latex'
+
+" Latex live
+"Plugin 'lervag/vimtex'
+
+"Nerd commenter
+Plugin 'preservim/nerdcommenter'
+"map <C-/>  <plug>NERDCommenterComment
+"map <C-=> <plug>NERDCommenterComment
+
 " Nerdtree plugin
 Plugin 'preservim/nerdtree'
 
@@ -140,9 +164,13 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "
 
+" vimtex settings
+"let g:vimtex_view_method = 'skim'
+
 " Some settings to enable the theme:
 set number
 syntax enable
 set background=dark
 let g:solarized_termcolors = 256  " New line!!
 colorscheme solarized
+"colorscheme atom
