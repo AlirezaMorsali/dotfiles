@@ -22,7 +22,11 @@ set mouse=a  " on OSX press ALT and click
 " I like to have it here becuase it is easier to reach than the default and
 " it is next to ``m`` and ``n`` which I use for navigating between tabs.
 " let mapleader = ","
-
+" Disable stupid backup and swap files - they trigger too many events
+" for file system watchers
+set nobackup
+set nowritebackup
+set noswapfile
 
 " Bind nohl
 " Removes highlight of your last search
@@ -128,13 +132,14 @@ Plugin 'vim-airline/vim-airline'
 
 
 " vim latex
-Plugin 'vim-latex/vim-latex'
+"Plugin 'vim-latex/vim-latex'
 
 " Latex live
-"Plugin 'lervag/vimtex'
+Plugin 'lervag/vimtex'
 
 "Nerd commenter
 Plugin 'preservim/nerdcommenter'
+" Plugin 'tomtom/tcomment_vim'
 "map <C-/>  <plug>NERDCommenterComment
 "map <C-=> <plug>NERDCommenterComment
 
@@ -163,10 +168,23 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "
+""""map <leader>c  <plug>NERDCommenterComment
+map <leader>c <plug>NERDCommenterToggle
+
+
+
+" vim latex
+"let g:tex_flavor='latex'
+"let g:Tex_TreatMacViewerAsUNIX = 1
+"let g:Tex_ExecuteUNIXViewerInForeground = 1
+"let g:Tex_ViewRule_ps = 'open -a Skim'
+"let g:Tex_ViewRule_pdf = 'open -a /Applications/Skim.app'
+
 
 " vimtex settings
 "let g:vimtex_view_method = 'skim'
-
+let g:vimtex_view_method = 'zathura'
+let g:polyglot_disabled = ['latex']
 " Some settings to enable the theme:
 set number
 syntax enable
