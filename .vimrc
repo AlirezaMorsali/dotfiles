@@ -6,6 +6,24 @@ filetype off                  " required
 " Automatic reloading of .vimrc
  autocmd! bufwritepost .vimrc source %
 
+
+" Text Wrap
+set wrap 
+set showbreak=…
+" move in shown lines:
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
+
+
+
 " Better copy & paste
 " When you want to paste large blocks of code into vim, press F2 before you
 " paste. At the bottom you should see ``-- INSERT (paste) --``.
@@ -70,9 +88,10 @@ syntax on
 
 " Showing line numbers and length
 set number  " show line numbers
+set relativenumber             " Show relative line numbers"
 set tw=79   " width of document (used by gd)
-set nowrap  " don't automatically wrap on load
-set fo-=t   " don't automatically wrap text when typing
+"set nowrap  " don't automatically wrap on load
+"set fo-=t   " don't automatically wrap text when typing
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
@@ -126,6 +145,14 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'easymotion/vim-easymotion'
 
+" Autopair
+Plugin 'jiangmiao/auto-pairs'
+
+"LSP
+Plugin 'liuchengxu/vista.vim'
+
+" Fuzzy search
+Plugin 'junegunn/fzf.vim'
 
 " airline
 Plugin 'vim-airline/vim-airline'
@@ -152,8 +179,36 @@ Plugin 'ryanoasis/vim-devicons'
 " Pugin for python fancy costumization
 Plugin 'fisadev/fisa-vim-config'
 
+"Intellisense engine for Vim8 & Neovim, full language server protocol support
+"as VSCode
+"Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+"Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
+Plugin 'dense-analysis/ale'
+
+
+
+
+" Themes
 Bundle 'altercation/vim-colors-solarized'
 " All of your Plugins must be added before the following line
+
+Plugin 'joshdick/onedark.vim'
+" for test
+Plugin 'junegunn/seoul256.vim'
+
+
+Plugin 'sheerun/vim-polyglot'
+
+"Python
+
+"Plugin 'jeetsukumaran/vim-pythonsense'
+
+" Python plugin 
+Plugin 'python-mode/python-mode'
+
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -170,8 +225,7 @@ filetype plugin indent on    " required
 "
 """"map <leader>c  <plug>NERDCommenterComment
 map <leader>c <plug>NERDCommenterToggle
-
-
+ 
 
 " vim latex
 "let g:tex_flavor='latex'
@@ -181,14 +235,57 @@ map <leader>c <plug>NERDCommenterToggle
 "let g:Tex_ViewRule_pdf = 'open -a /Applications/Skim.app'
 
 
+
+" COC.nvim
+"Going To definition
+nmap <silent> gd <Plug>(coc-definition)
+"Displaying documentation (in the floating window!)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+
+"Smart rename (renames the exports across all files)
+nmap <leader>rn <Plug>(coc-rename)
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+      let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <Tab>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<Tab>" :
+          \ coc#refresh()
+
 " vimtex settings
 "let g:vimtex_view_method = 'skim'
 let g:vimtex_view_method = 'zathura'
+"let g:vimtex_view_zathura_hook_view = 'MyViewHook'
+
+    "function! MyViewHook() abort dict
+              "echom 'See what I am:' string(self)
+                  "endfunction
+"let g:vimtex_view_zathura_hook_view
+"let g:vimtex_view_method = 'okular'
 let g:polyglot_disabled = ['latex']
 " Some settings to enable the theme:
-set number
+"set number
 syntax enable
-set background=dark
-let g:solarized_termcolors = 256  " New line!!
-colorscheme solarized
+"set background=dark
+"let g:solarized_termcolors = 256  " New line!!
+"colorscheme solarized
 "colorscheme atom
+"syntax on
+colorscheme onedark
+filetype plugin indent on
+syntax enable
+set termguicolors
+let &t_8f = "\e[38;2;%lu;%lu;%lum"
+let &t_8b = "\e[48;2;%lu;%lu;%lum"
