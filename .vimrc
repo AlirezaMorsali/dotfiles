@@ -231,7 +231,7 @@ map <Space> <Plug>(easymotion-bd-w)
 map <leader>c <plug>NERDCommenterToggle
  
 
-" vim latex
+ "vim latex
 "let g:tex_flavor='latex'
 "let g:Tex_TreatMacViewerAsUNIX = 1
 "let g:Tex_ExecuteUNIXViewerInForeground = 1
@@ -242,35 +242,35 @@ map <leader>c <plug>NERDCommenterToggle
 
 " COC.nvim
 "Going To definition
-nmap <silent> gd <Plug>(coc-definition)
-"Displaying documentation (in the floating window!)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
+"nmap <silent> gd <Plug>(coc-definition)
+""Displaying documentation (in the floating window!)
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
+"function! s:show_documentation()
+    "if (index(['vim','help'], &filetype) >= 0)
+        "execute 'h '.expand('<cword>')
+    "else
+        "call CocAction('doHover')
+    "endif
+"endfunction
 
 
 "Smart rename (renames the exports across all files)
-nmap <leader>rn <Plug>(coc-rename)
+"nmap <leader>rn <Plug>(coc-rename)
 
 " use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-      let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
+"function! s:check_back_space() abort
+      "let col = col('.') - 1
+        "return !col || getline('.')[col - 1]  =~ '\s'
+    "endfunction
 
-    inoremap <silent><expr> <Tab>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<Tab>" :
-          \ coc#refresh()
+    "inoremap <silent><expr> <Tab>
+          "\ pumvisible() ? "\<C-n>" :
+          "\ <SID>check_back_space() ? "\<Tab>" :
+          "\ coc#refresh()
 
 " vimtex settings
-"let g:vimtex_view_method = 'skim'
-let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'skim'
+"let g:vimtex_view_method = 'zathura'
 "let g:vimtex_view_zathura_hook_view = 'MyViewHook'
 
     "function! MyViewHook() abort dict
@@ -278,7 +278,7 @@ let g:vimtex_view_method = 'zathura'
                   "endfunction
 "let g:vimtex_view_zathura_hook_view
 "let g:vimtex_view_method = 'okular'
-let g:polyglot_disabled = ['latex']
+"let g:polyglot_disabled = ['latex']
 " Some settings to enable the theme:
 "set number
 syntax enable

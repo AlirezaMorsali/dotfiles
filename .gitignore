@@ -7,5 +7,6 @@
 !.bashrc
 !.gitignore
 !.tmux.conf
+!.dev
 !.bash_profile
 # etc...
