@@ -22,6 +22,9 @@ vnoremap <Up> gk
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
+"Escape :nohl
+inoremap jj <ESC>
+
 
 
 " Better copy & paste
@@ -49,15 +52,15 @@ set noswapfile
 " Bind nohl
 " Removes highlight of your last search
 " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
-noremap <C-n> :nohl<CR>
-vnoremap <C-n> :nohl<CR>
-inoremap <C-n> :nohl<CR>
+noremap <leader>nh :nohl<CR>
+vnoremap <leader>nh :nohl<CR>
+inoremap <leader>nh :nohl<CR>
 
 
 " Quicksave command
-noremap <Leader>s :update<CR>
-vnoremap  <Leader>s :update<CR>
-inoremap  <Leader>s :update<CR>
+noremap <leader>s :update<CR>
+vnoremap  <leader>s :update<CR>
+inoremap  <leader>s <C-\><C-o>:w<CR>
 
 
 " Quick quit command
@@ -157,6 +160,12 @@ Plugin 'junegunn/fzf.vim'
 " airline
 Plugin 'vim-airline/vim-airline'
 
+" Writing Notes
+Plugin 'junegunn/goyo.vim'
+
+" Multicurser
+Plugin 'terryma/vim-multiple-cursors'
+
 
 " vim latex
 "Plugin 'vim-latex/vim-latex'
@@ -206,8 +215,13 @@ Plugin 'sheerun/vim-polyglot'
 "Plugin 'jeetsukumaran/vim-pythonsense'
 
 " Python plugin 
-Plugin 'python-mode/python-mode'
+"Plugin 'python-mode/python-mode'
 
+"jupyter notebook
+Plugin 'jupyter-vim/jupyter-vim'
+
+" VTM
+Plugin 'christoomey/vim-tmux-runner'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -223,6 +237,24 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+" VTM 
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+nnoremap <leader>av :VtrAttachToPane<cr>
+nnoremap <leader>at :VtrAttachToPane 2<cr>
+nnoremap <leader>ad :VtrAttachToPane 1<cr>
+nnoremap <leader>ror :VtrReorientRunner<cr>
+nnoremap <leader>rc :VtrSendCommandToRunner<cr>
+nnoremap <leader>re :VtrSendLinesToRunner<cr>
+vnoremap <leader>re :VtrSendLinesToRunner<cr>
+nnoremap <leader>or :VtrOpenRunner<cr>
+nnoremap <leader>kr :VtrKillRunner<cr>
+nnoremap <leader>fr :VtrFocusRunner<cr>
+nnoremap <leader>dr :VtrDetachRunner<cr>
+nnoremap <leader>cr :VtrClearRunner<cr>
+nnoremap <leader>fc :VtrFlushCommand<cr>
+nnoremap  <leader>rr :VtrSendFile<cr>
 " easy motion
 map <Space> <Plug>(easymotion-bd-w)
 
