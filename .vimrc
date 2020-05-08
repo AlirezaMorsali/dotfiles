@@ -8,8 +8,10 @@ filetype off                  " required
 
 
 " Text Wrap
-set wrap 
+set wrap
+set linebreak
 set showbreak=…
+set formatoptions+=a
 " move in shown lines:
 nnoremap j gj
 nnoremap k gk
@@ -23,7 +25,7 @@ inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
 "Escape :nohl
-inoremap jj <ESC>
+inoremap ii <ESC>
 
 
 
@@ -65,6 +67,8 @@ inoremap  <leader>s <C-\><C-o>:w<CR>
 
 " Quick quit command
 noremap <Leader>q :quit<CR>  " Quit current window
+vnoremap  <leader>q :quit<CR>
+inoremap  <leader>q <C-\><C-o>:q<CR>
 noremap <Leader>Q :qa!<CR>   " Quit all windows
 
 " map sort function to a key
@@ -198,7 +202,6 @@ Plugin 'dense-analysis/ale'
 
 
 
-
 " Themes
 Bundle 'altercation/vim-colors-solarized'
 " All of your Plugins must be added before the following line
@@ -217,11 +220,17 @@ Plugin 'sheerun/vim-polyglot'
 " Python plugin 
 "Plugin 'python-mode/python-mode'
 
+" Vimspecter debugger
+Plugin 'puremourning/vimspector'
+
 "jupyter notebook
 Plugin 'jupyter-vim/jupyter-vim'
 
 " VTM
 Plugin 'christoomey/vim-tmux-runner'
+
+"Vim Cellmode 
+"Plugin 'ZichaoLong/vim-cellmode'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -236,6 +245,11 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+"Vim specter
+let g:vimspector_enable_mappings = 'HUMAN'
+packadd! vimspector
+
 
 " VTM 
 let g:VtrStripLeadingWhitespace = 0
@@ -262,6 +276,8 @@ map <Space> <Plug>(easymotion-bd-w)
 """"map <leader>c  <plug>NERDCommenterComment
 map <leader>c <plug>NERDCommenterToggle
  
+" Nerdtree
+map <leader>nt :NERDTreeToggle<CR>
 
  "vim latex
 "let g:tex_flavor='latex'
@@ -271,6 +287,11 @@ map <leader>c <plug>NERDCommenterToggle
 "let g:Tex_ViewRule_pdf = 'open -a /Applications/Skim.app'
 
 
+" ALE
+
+let g:ale_fixers = {'python': ['black','isort','add_blank_lines_for_python_control_statements','remove_trailing_lines','trim_whitespace']}
+
+nmap <leader>af <Plug>(ale_fix)
 
 " COC.nvim
 "Going To definition
