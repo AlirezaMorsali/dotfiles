@@ -15,6 +15,8 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 #ZSH_THEME="kphoen"
 
+#ZSH_THEME="TheOne"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -118,5 +120,25 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-export PS1=">> "
+#export PS1=">> "
 
+# Powerline
+#function powerline_precmd() {
+    #PS1="$(powerline-shell --shell zsh $?)"
+#}
+
+#function install_powerline_precmd() {
+  #for s in "${precmd_functions[@]}"; do
+    #if [ "$s" = "powerline_precmd" ]; then
+      #return
+    #fi
+  #done
+  #precmd_functions+=(powerline_precmd)
+#}
+
+#if [ "$TERM" != "linux" ]; then
+    #install_powerline_precmd
+#fi
+
+# Neofetch
+neofetch

@@ -11,7 +11,7 @@ filetype off                  " required
 set wrap
 set linebreak
 set showbreak=…
-set formatoptions+=a
+"set formatoptions+=a
 " move in shown lines:
 nnoremap j gj
 nnoremap k gk
@@ -159,7 +159,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'liuchengxu/vista.vim'
 
 " Fuzzy search
-Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf.vim', { 'do': { -> fzf#install()  }  }
 
 " airline
 Plugin 'vim-airline/vim-airline'
@@ -170,6 +170,9 @@ Plugin 'junegunn/goyo.vim'
 " Multicurser
 Plugin 'terryma/vim-multiple-cursors'
 
+
+" Vim unicode
+Plugin 'chrisbra/unicode.vim'
 
 " vim latex
 "Plugin 'vim-latex/vim-latex'
@@ -286,6 +289,8 @@ map <leader>nt :NERDTreeToggle<CR>
 "let g:Tex_ViewRule_ps = 'open -a Skim'
 "let g:Tex_ViewRule_pdf = 'open -a /Applications/Skim.app'
 
+" Unicode
+map <leader>uf <Plug>(UnicodeFuzzy)
 
 " ALE
 
