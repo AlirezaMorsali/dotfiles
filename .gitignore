@@ -10,4 +10,5 @@
 !.tmux.conf
 !.dev
 !.bash_profile
+!.alacritty.yml
 # etc...

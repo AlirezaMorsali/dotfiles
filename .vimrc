@@ -169,6 +169,7 @@ Plugin 'junegunn/fzf.vim', { 'do': { -> fzf#install()  }  }
 
 " airline
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Writing Notes
 Plugin 'junegunn/goyo.vim'
@@ -254,6 +255,10 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+
+" airline theme
+let g:airline_theme='deus'
 
 "Vim specter
 let g:vimspector_enable_mappings = 'HUMAN'
