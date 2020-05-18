@@ -11,6 +11,7 @@ filetype off                  " required
 set wrap
 set linebreak
 set showbreak=…
+"set formatoptions=tcqa
 "set formatoptions+=a
 " move in shown lines:
 nnoremap j gj
@@ -96,7 +97,7 @@ syntax on
 " Showing line numbers and length
 set number  " show line numbers
 set relativenumber             " Show relative line numbers"
-set tw=79   " width of document (used by gd)
+"set tw=79   " width of document (used by gd)
 "set nowrap  " don't automatically wrap on load
 "set fo-=t   " don't automatically wrap text when typing
 set colorcolumn=80
@@ -325,9 +326,14 @@ nmap <leader>af <Plug>(ale_fix)
           "\ pumvisible() ? "\<C-n>" :
           "\ <SID>check_back_space() ? "\<Tab>" :
           "\ coc#refresh()
-
+"vimtex
+let g:tex_flavor='latex'
+let g:vimtex_view_method='skim'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
 " vimtex settings
-let g:vimtex_view_method = 'skim'
+"let g:vimtex_view_method = 'skim'
 "let g:vimtex_view_method = 'zathura'
 "let g:vimtex_view_zathura_hook_view = 'MyViewHook'
 
