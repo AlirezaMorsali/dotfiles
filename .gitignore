@@ -1,9 +1,12 @@
 # Ignore everything
-*
+/*
 
 # But not these files...
+!.doom.d/
+#!/dir1/
 !.vimrc
 !.vim
+.vim/
 !.bashrc
 !.zshrc
 !.gitignore
@@ -11,5 +14,5 @@
 !.dev
 !.bash_profile
 !.alacritty.yml
-!/.doom.d/*
+#!file2.test
 # etc...
