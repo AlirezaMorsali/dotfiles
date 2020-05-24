@@ -11,4 +11,5 @@
 !.dev
 !.bash_profile
 !.alacritty.yml
+!/.doom.d/*
 # etc...

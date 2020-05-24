@@ -1,4 +1,4 @@
-" vimrc configurations
+ "vimrc configurations
 " Vundle for plugin management
 
 
@@ -211,6 +211,11 @@ Plugin 'fisadev/fisa-vim-config'
 Plugin 'dense-analysis/ale'
 
 
+" vim repeat
+Plugin 'tpope/vim-repeat'
+" surround
+Plugin 'tpope/vim-surround'
+
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
@@ -227,7 +232,7 @@ Plugin 'sheerun/vim-polyglot'
 
 "Plugin 'jeetsukumaran/vim-pythonsense'
 
-" Python plugin 
+" Python plugin
 "Plugin 'python-mode/python-mode'
 
 " Vimspecter debugger
@@ -239,8 +244,12 @@ Plugin 'jupyter-vim/jupyter-vim'
 " VTM
 Plugin 'christoomey/vim-tmux-runner'
 
-"Vim Cellmode 
+"Vim Cellmode
 "Plugin 'ZichaoLong/vim-cellmode'
+
+" Coq
+Plugin 'whonore/Coqtail'
+Plugin 'let-def/vimbufsync'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -304,8 +313,8 @@ map <leader>nt :NERDTreeToggle<CR>
 map <leader>uf <Plug>(UnicodeFuzzy)
 
 " ALE
-
-let g:ale_fixers = {'python': ['black','isort','add_blank_lines_for_python_control_statements','remove_trailing_lines','trim_whitespace']}
+let g:ale_linters = {'python': ['flake8']}
+let g:ale_fixers = {'python': ['yapf','isort','add_blank_lines_for_python_control_statements','remove_trailing_lines','trim_whitespace']}
 
 nmap <leader>af <Plug>(ale_fix)
 
