@@ -15,6 +15,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 export PS1=">> "
 alias clc="clear"
+export PATH=/usr/local/smlnj/bin:"$PATH" 
 # tmux setup for vim colour scheme:
 #alias tmux="TERM=screen-256color-bce tmux"
 #set -g default-terminal "xterm"

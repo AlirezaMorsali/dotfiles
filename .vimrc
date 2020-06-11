@@ -31,7 +31,7 @@ inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
 "Escape :nohl
-inoremap ii <ESC>
+inoremap jk <ESC>
 
 
 
@@ -187,14 +187,12 @@ Plugin 'chrisbra/unicode.vim'
 " Latex live
 Plugin 'lervag/vimtex'
 
-"Nerd commenter
-Plugin 'preservim/nerdcommenter'
-" Plugin 'tomtom/tcomment_vim'
-"map <C-/>  <plug>NERDCommenterComment
-"map <C-=> <plug>NERDCommenterComment
+" Commentary
+Plugin 'tpope/vim-commentary'
 
-" Nerdtree plugin
-Plugin 'preservim/nerdtree'
+
+" vifm  plugin
+Plugin 'vifm/vifm.vim'
 
 " Icons
 Plugin 'ryanoasis/vim-devicons'
@@ -219,6 +217,7 @@ Plugin 'tpope/vim-surround'
 
 " Themes
 Bundle 'altercation/vim-colors-solarized'
+Plugin 'challenger-deep-theme/vim', {'name': 'challenger-deep-theme'}
 " All of your Plugins must be added before the following line
 
 Plugin 'joshdick/onedark.vim'
@@ -295,12 +294,9 @@ nnoremap  <leader>rr :VtrSendFile<cr>
 " easy motion
 map <Space> <Plug>(easymotion-bd-w)
 
-"
-""""map <leader>c  <plug>NERDCommenterComment
-map <leader>c <plug>NERDCommenterToggle
  
-" Nerdtree
-map <leader>nt :NERDTreeToggle<CR>
+" Vifm Plugin
+map <leader>vi :Vifm<CR>
 
  "vim latex
 "let g:tex_flavor='latex'
@@ -370,7 +366,10 @@ syntax enable
 "colorscheme solarized
 "colorscheme atom
 "syntax on
-colorscheme onedark
+" colorscheme onedark
+colorscheme challenger_deep
+
+
 filetype plugin indent on
 syntax enable
 set termguicolors

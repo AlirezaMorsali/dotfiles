@@ -19,12 +19,28 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 14))
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :weight 'light :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+; (setq doom-theme 'doom-one)
+; (setq doom-theme 'doom-outrun-electric)
+; (setq doom-theme 'doom-solarized-light)
+(setq doom-theme 'doom-outrun-electric)
+;; (setq doom-theme 'doom-moonlight)
+;; (setq doom-theme 'doom-laserwave)
+;; (setq doom-theme 'doom-challenger-deep)
+
+;; Light themes
+;; (setq doom-theme 'doom-nord-light)
+;; (setq doom-theme 'doom-fairy-floss)
+;; (setq doom-theme 'doom-tomorrow-day)
+;; (setq doom-theme 'doom-solarized-light)
+;; (setq doom-theme 'doom-acario-light)
+;; (setq doom-theme 'doom-opera-light)
+;; (setq doom-theme 'doom-nova)
+;; (setq doom-theme 'doom-one-light)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -32,7 +48,8 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -92,8 +109,35 @@
        TeX-source-correlate-start-server t)
 (setq TeX-view-program-list '(("pdf-tools" "TeX-pdf-tools-sync-view"))))
 
+;; keyboard backward search
+(defun pdf-sync-backward-to-top-of-page ()
+  "Use coordinate (1,1) to sync backward"
+  (interactive)
+  (pdf-sync-backward-search 1 1))
 
 
+(add-hook 'pdf-sync-minor-mode-hook
+   (lambda () (define-key pdf-sync-minor-mode-map
+                 (kbd "C-c b")
+                 'pdf-sync-backward-to-top-of-page)))
+;; Matlab-Mode
+;; % CLI matlab from the shell:
+    ;; % /Applications/MATLAB_R2016a.app/bin/matlab -nodesktop
+    ;; %
+    ;; % elisp setup for matlab-mode:
+(setq matlab-shell-command "/Applications/MATLAB_R2019b.app/bin/matlab")
+(setq matlab-shell-command-switches (list "-nodesktop"))
+
+
+;; SML-Mode
+(setenv "PATH" (concat "/usr/local/smlnj/bin" (getenv "PATH")))
+(setq exec-path (cons "/usr/local/smlnj/bin"  exec-path))
+
+;; Word wrap
+(global-visual-line-mode t)
+
+;; neotree
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 ;; ;; Evince
 ;; (setq TeX-source-correlate-start-server t)
 
