@@ -27,14 +27,14 @@
 ; (setq doom-theme 'doom-one)
 ; (setq doom-theme 'doom-outrun-electric)
 ; (setq doom-theme 'doom-solarized-light)
-(setq doom-theme 'doom-outrun-electric)
+;; (setq doom-theme 'doom-outrun-electric)
 ;; (setq doom-theme 'doom-moonlight)
 ;; (setq doom-theme 'doom-laserwave)
 ;; (setq doom-theme 'doom-challenger-deep)
 
 ;; Light themes
 ;; (setq doom-theme 'doom-nord-light)
-;; (setq doom-theme 'doom-fairy-floss)
+ (setq doom-theme 'doom-fairy-floss)
 ;; (setq doom-theme 'doom-tomorrow-day)
 ;; (setq doom-theme 'doom-solarized-light)
 ;; (setq doom-theme 'doom-acario-light)
@@ -138,6 +138,7 @@
 
 ;; neotree
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+;; (define-key evil-normal-state-map (kbd "SPC o p") 'neotree-toggle)
 ;; ;; Evince
 ;; (setq TeX-source-correlate-start-server t)
 
@@ -150,3 +151,67 @@
 ;;   ; Other mode specific config
 ;;   )
 ;; (add-hook 'LaTeX-mode-hook 'my-LaTeX-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ ;; '(package-selected-packages
+ ;;   (quote
+ ;;    (web-beautify skewer-mode js2-mode http httprepl simple-httpd exwm xwidgete spaceline-all-the-icons racket-mode matlab-mode exe
+                  ;; c-path-from-shell all-the-icons-dired)))
+ )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(require 'web-mode)
+(add-hook 'web-mode-hook
+          (lambda ()
+            (when (string-equal "tsx" (file-name-extension buffer-file-name))
+              (setup-tide-tsx)
+            )))
+(defun web-mode-init-hook ()
+  "Hooks for Web mode.  Adjust indent."
+  ;; (tide-setup)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-enable-auto-quoting 2)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
+  (setq web-mode-attr-value-indent-offset 2)
+  (setq web-mode-indent-style 2)
+)
+(add-hook 'web-mode-hook  'web-mode-init-hook)
+(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(setq typescript-indent-level 2)
+
+;; Image previews in dired
+(global-set-key (kbd "C-x i") 'peep-dired)
+(evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file
+                                             (kbd "k") 'peep-dired-prev-file)
+(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+
+
+
+;; easy navigation
+(define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+(define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+(define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+(define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+
+;; Mp
+(define-key evil-normal-state-map (kbd "s-p") 'execute-extended-command)
+
+
+;; liveserver impationt mode
+(defun my-livesrver ()
+  "Run `some-command' and `some-other-command' in sequence."
+  (interactive)
+  (httpd-start)
+  (impatient-mode))
+
+(define-key evil-normal-state-map (kbd "s-r") 'my-livesrver)

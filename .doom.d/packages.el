@@ -18,10 +18,15 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 (package! auctex)
-(package! neotree)
 (package! pdf-tools)
 (package! evil-easymotion)
 (package! matlab-mode)
+(package! simple-httpd)
+(package! js2-mode)
+(package! skewer-mode)
+(package! impatient-mode)
+(package! web-mode)
+(package! peep-dired)
 
 ;; To install a package directly from a particular repo, you'll need to specify
 ;; a `:recipe'. You'll find documentation on what `:recipe' accepts here:
