@@ -1,16 +1,20 @@
- "vimrc configurations
+ "Plugin 'davidhalter/jedi-vim'vimrc configurations
 " Vundle for plugin management
 
 
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
+let mapleader = ' '
+let maplocalleader = ' m'
 
 
 " Automatic reloading of .vimrc
  autocmd! bufwritepost .vimrc source %
-
+" Auto reload when file changes on disk
+set autoread
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+\ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
 " Text Wrap
 set wrap
@@ -46,6 +50,10 @@ set clipboard=unnamed
 set mouse=a  " on OSX press ALT and click
 "" set bs=2     " make backspace behave like normal again
 
+" Copy Past
+"
+noremap <C-c> "*y
+noremap <C-p> "*p
 
 " Rebind <Leader> key
 " I like to have it here becuase it is easier to reach than the default and
@@ -66,9 +74,9 @@ inoremap <leader>nh :nohl<CR>
 
 
 " Quicksave command
-noremap <leader>s :update<CR>
-vnoremap  <leader>s :update<CR>
-inoremap  <leader>s <C-\><C-o>:w<CR>
+noremap <leader>fs :update<CR>
+vnoremap  <leader>fs :update<CR>
+inoremap  <leader>fs <C-\><C-o>:w<CR>
 
 
 " Quick quit command
@@ -88,7 +96,7 @@ vnoremap > >gv  " better indentation
 
 " Show whitespace
 " MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=blue guibg=blue
 au InsertLeave * match ExtraWhitespace /\s\+$/
 
 
@@ -228,6 +236,8 @@ Plugin 'junegunn/seoul256.vim'
 Plugin 'sheerun/vim-polyglot'
 
 "Python
+" Jedi
+Plugin 'davidhalter/jedi-vim'
 
 "Plugin 'jeetsukumaran/vim-pythonsense'
 
@@ -235,7 +245,7 @@ Plugin 'sheerun/vim-polyglot'
 "Plugin 'python-mode/python-mode'
 
 " Vimspecter debugger
-Plugin 'puremourning/vimspector'
+" Plugin 'puremourning/vimspector'
 
 "jupyter notebook
 Plugin 'jupyter-vim/jupyter-vim'
@@ -249,6 +259,10 @@ Plugin 'christoomey/vim-tmux-runner'
 " Coq
 Plugin 'whonore/Coqtail'
 Plugin 'let-def/vimbufsync'
+
+" Docker
+Plugin 'ekalinin/Dockerfile.vim'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -269,11 +283,11 @@ filetype plugin indent on    " required
 let g:airline_theme='deus'
 
 "Vim specter
-let g:vimspector_enable_mappings = 'HUMAN'
-packadd! vimspector
+" let g:vimspector_enable_mappings = 'HUMAN'
+" packadd! vimspector
 
 
-" VTM 
+" VTM
 let g:VtrStripLeadingWhitespace = 0
 let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
@@ -291,10 +305,12 @@ nnoremap <leader>dr :VtrDetachRunner<cr>
 nnoremap <leader>cr :VtrClearRunner<cr>
 nnoremap <leader>fc :VtrFlushCommand<cr>
 nnoremap  <leader>rr :VtrSendFile<cr>
-" easy motion
-map <Space> <Plug>(easymotion-bd-w)
 
- 
+" easy motion
+map <leader>j <Plug>(easymotion-bd-w)
+" map <leader> <Plug>(easymotion-bd-w)
+
+
 " Vifm Plugin
 map <leader>vi :Vifm<CR>
 
@@ -310,7 +326,8 @@ map <leader>uf <Plug>(UnicodeFuzzy)
 
 " ALE
 let g:ale_linters = {'python': ['flake8']}
-let g:ale_fixers = {'python': ['yapf','isort','add_blank_lines_for_python_control_statements','remove_trailing_lines','trim_whitespace']}
+" let g:ale_fixers = {'python': ['yapf','isort','add_blank_lines_for_python_control_statements','remove_trailing_lines','trim_whitespace']}
+let g:ale_fixers = {'python': ['black','isort','add_blank_lines_for_python_control_statements','remove_trailing_lines','trim_whitespace']}
 
 nmap <leader>af <Plug>(ale_fix)
 

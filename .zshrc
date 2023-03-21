@@ -1,26 +1,24 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-#alias tmux="TERM=screen-256color tmux"
-#alias tmux="TERM=screen-256color-bce tmux"
+
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/alireza/.oh-my-zsh"
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-export PATH=/usr/local/smlnj/bin:"$PATH"
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=$HOME/.emacs.d/bin:$PATH
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-
-#ZSH_THEME="agnoster"
-
-#ZSH_THEME="kphoen"
-
-#ZSH_THEME="TheOne"
+# ZSH_THEME="robbyrussell"
+# ZSH_THEME="minimal"
+# ZSH_THEME="linuxonly"
+# ZSH_THEME="mortalscumbag"
+ZSH_THEME="murilasso"
+# ZSH_TMUX_AUTOSTART='true'
+# ZSH_TMUX_AUTOCONNECT='false'
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -31,17 +29,16 @@ export PATH=/usr/local/smlnj/bin:"$PATH"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -53,6 +50,9 @@ export PATH=/usr/local/smlnj/bin:"$PATH"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -72,12 +72,20 @@ export PATH=/usr/local/smlnj/bin:"$PATH"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
-    vi-mode)
+    sudo
+    history
+    taskwarrior
+    tmux
+    tmuxinator
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    # poetry
+    )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,40 +114,73 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias dev="bash ~/.dev"
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/alireza/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/alireza/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/alireza/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/alireza/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-#export PS1=">> "
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
-# Powerline
-#function powerline_precmd() {
-    #PS1="$(powerline-shell --shell zsh $?)"
-#}
+eval "$(pyenv init -)"
+eval "$(jump shell)"
+eval "$(pyenv virtualenv-init -)"
 
-#function install_powerline_precmd() {
-  #for s in "${precmd_functions[@]}"; do
-    #if [ "$s" = "powerline_precmd" ]; then
-      #return
-    #fi
-  #done
-  #precmd_functions+=(powerline_precmd)
-#}
 
-#if [ "$TERM" != "linux" ]; then
-    #install_powerline_precmd
-#fi
+## Python and venv utilities
+alias p="python"
+alias pi="python -i"
+alias t="tmux"
+alias c="clear"
+alias da="deactivate"
 
-# Neofetch
-# neofetch
+# Activate a the python virtual environment specified.
+# If none specified, use 'venv'.
+function rv() {
+  local name="${1:-.venv}"
+  local venvpath="${name:P}"
+
+  if [[ ! -d "$venvpath" ]]; then
+    echo >&2 "Error: no such venv in current directory: $name"
+    return 1
+  fi
+
+  if [[ ! -f "${venvpath}/bin/activate" ]]; then
+    echo >&2 "Error: '${name}' is not a proper virtual environment"
+    return 1
+  fi
+
+  . "${venvpath}/bin/activate" || return $?
+  echo "Activated virtual environment ${name}"
+}
+
+# Create a new virtual environment, with default name 'venv'.
+function cv() {
+  local name="${1:-.venv}"
+  local venvpath="${name:P}"
+
+  python3 -m venv "${name}" || return
+  echo >&2 "Created venv in '${venvpath}'"
+  rv "${name}"
+  pip install --upgrade pip
+}
+
+declare -A pomo_options
+pomo_options["work"]="45"
+pomo_options["break"]="10"
+
+pomodoro () {
+  if [ -n "$1" -a -n "${pomo_options["$1"]}" ]; then
+  val=$1
+  echo $val | lolcat
+  timer ${pomo_options["$val"]}m
+  spd-say "'$val' session done"
+  fi
+}
+
+alias wo="pomodoro 'work'"
+alias br="pomodoro 'break'"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# github cli
+autoload -U compinit
+compinit -i
