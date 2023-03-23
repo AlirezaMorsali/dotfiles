@@ -3,6 +3,7 @@
 
 # But not these files...
 !.doom.d/
+!.config/
 #!/dir1/
 !.vimrc
 !.vim
