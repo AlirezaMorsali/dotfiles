@@ -1,8 +1,6 @@
  "vimrc configurations
 set nocompatible              " be iMproved, required
 filetype off                  " required
-let mapleader = ' '
-let maplocalleader = ' m'
 
 " Text Wrap
 set wrap
@@ -24,7 +22,17 @@ inoremap <Up> <C-o>gk
 "Escape :nohl
 inoremap jk <ESC>
 
+" " Quicksave command
+noremap <leader>s :update<CR>
+vnoremap  <leader>s :update<CR>
+inoremap  <leader>s <C-\><C-o>:w<CR>
 
+
+" " Quick quit command
+noremap <Leader>q :quit<CR>  " Quit current window
+vnoremap  <leader>q :quit<CR>
+inoremap  <leader>q <C-\><C-o>:q<CR>
+noremap <Leader>Q :qa!<CR>   " Quit all windows
 
 " " Better copy & paste
 " " When you want to paste large blocks of code into vim, press F2 before you
@@ -55,18 +63,6 @@ inoremap jk <ESC>
 " vnoremap <leader>nh :nohl<CR>
 " inoremap <leader>nh :nohl<CR>
 
-
-" " Quicksave command
-" noremap <leader>s :update<CR>
-" vnoremap  <leader>s :update<CR>
-" inoremap  <leader>s <C-\><C-o>:w<CR>
-
-
-" " Quick quit command
-" noremap <Leader>q :quit<CR>  " Quit current window
-" vnoremap  <leader>q :quit<CR>
-" inoremap  <leader>q <C-\><C-o>:q<CR>
-" noremap <Leader>Q :qa!<CR>   " Quit all windows
 
 " " map sort function to a key
 " vnoremap <Leader><Leader>s :sort<CR>
