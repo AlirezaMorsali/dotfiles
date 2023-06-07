@@ -15,7 +15,6 @@ filetype off                  " required
 " Text Wrap
 set wrap
 set linebreak
-set showbreak=…
 "set formatoptions=tcqa
 "set formatoptions+=a
 " move in shown lines:
